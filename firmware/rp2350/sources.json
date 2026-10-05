@@ -1,0 +1,32 @@
+{
+  "circuitpython": "10.2.1",
+  "mpy_cross": "CircuitPython 10.2.1 on 2026-05-12; mpy-cross emitting mpy v6.3",
+  "profile": "rp2350",
+  "sources": {
+    "adapters/__init__.py": "57c5a6b82648f4d8e3e18f06b96e095364f504d09116eea4c3f81f6e0dae00c0",
+    "adapters/clock.py": "5620ef76396cc454c25533d3fba60d63b6bab2959f0a23c0dec81762f03599e6",
+    "adapters/configuration.py": "dd9ccc35f0502e49bd4513934808a4f70d36cb604dfaca02bcb14aca2318e09d",
+    "adapters/csv_migration.py": "b54550fa9f3c23132367d7aaab63ec137331f01b75b34bbb2d7f2ef279b7895b",
+    "adapters/diagnostics.py": "39e4276e54650f52c8963778f253ed0440e7e34b9bdc99e7d97f375268af48e5",
+    "adapters/ds18b20_sensor.py": "83f0aad51b0fcfba9d035044fef29e388537b857d8d82b74726707d4cc9d2016",
+    "adapters/oled_display.py": "526286295eff6b810d57e66dfcbae96c279dc92a3fece39dd5ada689d88bb7b6",
+    "adapters/relay_storage.py": "57a87b1ae66dda8baac082f370b5019f23366bc5f4109929e87660c7231ee104",
+    "adapters/sd_card.py": "81ae48c60c3fc402b44961007eee9e1c69db8bfd37f8a1a3cf06b48feda4b214",
+    "adapters/sd_storage.py": "dffef9a143dac2dc86e14d95cd0f91ae1bde5eeb7adbdebe230ba4ecc04ac51b",
+    "adapters/sen66_sensor.py": "71e3a2c4ed4ecad45cf1677d14565babf66891af4536e04b16fe62f9a100aa04",
+    "adapters/soil_moisture_sensor.py": "25276f3cf8dff833d9f244e3ee7aade4453eee7516076eeb3a68828f574b0a30",
+    "adapters/sx1262_radio.py": "0a6789063e148ffe9e097eec51948c911b51ed98837c462046c7f9a2362dd601",
+    "application/__init__.py": "9e01aef3a38215913d741f8349064b50f771890d5a57727827650093c1ac61cb",
+    "application/master_controller.py": "9dbfa73e5752ff858d4ac76ca56e453fd0b7bb95e71801ace4fe06d5179bffce",
+    "application/relay_controller.py": "06bd51e92205ab837c8b65e79c710517e5d8680aa4cadd9b01056645fe9d53c2",
+    "application/slave_controller.py": "633c4a3470c3041fff7a6a2bafa9728cd55fd7c4ba8667214d682cacc7ddcee5",
+    "code.py": "2a620255f6e9bfdc55e0f3956a3226e8103a402776b9d47f3998d39543d5a9e9",
+    "domain/__init__.py": "1748d35c9e2aa568c0a845b39a7fe6cfd848e607ec8e7ab8db3717abc7beedb2",
+    "domain/measurement.py": "4dfc6aba60e8a40b2242fe3be3d2f43eb7b52c29503d4c9de907af20cf5dc33c",
+    "domain/plausibility.py": "d7322c5f43624d7761d90ef279f348126a97e654e2e09f9af1a9226fe5cef747",
+    "domain/protocol.py": "7e88089f861080a230e0a060440e07a2576c3fb49512c20f5ac311f61ed861d4",
+    "ports/__init__.py": "abd3fdbf49a08222920dd358459f51e45f947a13f3c3128cf84fcf40eed77932",
+    "ports/contracts.py": "e385859223155450caca2623f4d0fa76341ccb0148f1fac5e1190705e7bb8f6e",
+    "ports/errors.py": "7358ed1b8dac7f8de2f4833ca640cef6fc0a1ac6dd92579b45b8c4487114b94e"
+  }
+}

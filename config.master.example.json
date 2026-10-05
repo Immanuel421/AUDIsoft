@@ -1,0 +1,25 @@
+{
+  "role": "master",
+  "device_id": "M01",
+  "network_mode": "star",
+  "monitored_slaves": [
+    "C01",
+    "C02"
+  ],
+  "time_epoch_utc": null,
+  "measurement_interval_s": 900,
+  "soil_moisture": {
+    "enabled": false
+  },
+  "plausibility_limits": {},
+  "ack_timeout_ms": 3000,
+  "receive_timeout_ms": 30000,
+  "radio": {
+    "frequency_mhz": 868.1,
+    "bandwidth_khz": 125.0,
+    "spreading_factor": 7,
+    "coding_rate": 5,
+    "tx_power_dbm": 10,
+    "sync_word": 18
+  }
+}

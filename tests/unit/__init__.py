@@ -1,0 +1,1 @@
+"""Hardwareunabhaengige Tests der Anwendungslogik."""

@@ -1,0 +1,8 @@
+phase,current_ma,duration_s,occurrences_per_cycle
+sleep,,AUTO,1
+boot,,,1
+sensor_warmup,,,1
+measurement,,,1
+sd_write,,,1
+lora_send,,,1
+ack_receive,,,1

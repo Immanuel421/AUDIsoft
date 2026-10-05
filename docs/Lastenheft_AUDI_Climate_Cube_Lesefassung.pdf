@@ -1,0 +1,440 @@
+%PDF-1.4
+%PDFGEN
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R] /Count 10 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 589 >>
+stream
+0.08 0.30 0.24 rg 45 640 505 8 re f 0 g
+BT /F2 24 Tf 1 0 0 1 52 720 Tm (LASTENHEFT) Tj ET
+BT /F2 20 Tf 1 0 0 1 52 688 Tm (AUDI Climate Cube) Tj ET
+BT /F1 13 Tf 1 0 0 1 52 653 Tm (Offline-Messdatenerfassung und LoRa-\334bertragung f\374r Climate Cubes) Tj ET
+BT /F2 11 Tf 1 0 0 1 52 547 Tm (Version 0.2) Tj ET
+BT /F1 11 Tf 1 0 0 1 52 530 Tm (Stand: 12.08.2026) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 513 Tm (Status: Entwurf zur fachlichen Pr\374fung - nicht freigegeben) Tj ET
+BT /F1 11 Tf 1 0 0 1 52 467 Tm (Bearbeiter: Immanuel Mauch) Tj ET
+BT /F1 8 Tf 0.35 g 1 0 0 1 275 28 Tm (Seite 1) Tj ET 0 g
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 926 >>
+stream
+BT /F2 19 Tf 1 0 0 1 52 780 Tm (Inhalts\374bersicht) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 745 Tm (1. Zweck Des Dokuments) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 727 Tm (2. Freigabe Und \304nderungsstand) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 709 Tm (3. Ausgangssituation) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 691 Tm (4. Zielbestimmung) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 673 Tm (5. Stakeholder Und Rollen) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 655 Tm (6. Produkteinsatz) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 637 Tm (7. Funktionale Anforderungen) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 619 Tm (8. Messdaten) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 601 Tm (9. Nicht-Funktionale Anforderungen) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 583 Tm (10. Randbedingungen) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 565 Tm (11. Liefergegenst\344nde) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 547 Tm (12. Fachliche Abnahme) Tj ET
+BT /F1 11 Tf 1 0 0 1 60 493 Tm (13. Freigabevermerk) Tj ET
+BT /F1 8 Tf 0.35 g 1 0 0 1 275 28 Tm (Seite 2) Tj ET 0 g
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 4032 >>
+stream
+BT /F2 15 Tf 1 0 0 1 52 768 Tm (1. Zweck Des Dokuments) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 739 Tm (Dieses Lastenheft beschreibt aus fachlicher Sicht, was das Climate-Cube-System leisten soll) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 726 Tm (und wozu die Funktionen ben\366tigt werden. Es legt noch nicht fest, wie die Software intern) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 713 Tm (aufgebaut oder implementiert wird.) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 693 Tm (Grundlage sind:) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 672 Tm (- die bisherigen Informationen von Herrn Schnabel,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 656 Tm (- der bereitgestellte Climate-Cube-Prototyp,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 640 Tm (- die am 11.08.2026 untersuchte Hardware,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 624 Tm (- der erfolgreiche isolierte LoRa-Ping-Pong-Test,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 608 Tm (- noch offene Abstimmungen, die in diesem Dokument ausdr\374cklich als offen markiert sind.) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 589 Tm (Das zugeh\366rige Pflichtenheft beschreibt nach fachlicher Pr\374fung dieses Lastenhefts die) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 576 Tm (geplante technische Umsetzung.) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 543 Tm (2. Freigabe Und \304nderungsstand) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 510 Tm (Rolle | Person / Stelle | Aufgabe | Status) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 495 Tm (Rolle: fachlicher Ansprechpartner | Person / Stelle: Herr Schnabel | Aufgabe: Anforderungen pr\374fen, priorisieren) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 484 Tm (und fachlich freigeben | Status: offen) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 469 Tm (Rolle: betreuender Professor | Person / Stelle: Herr Heym | Aufgabe: wissenschaftliche und methodische Begleitung) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 458 Tm (| Status: Zuordnung nach aktuellem Informationsstand) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 443 Tm (Rolle: Bearbeiter | Person / Stelle: Immanuel Mauch | Aufgabe: Lastenheft pflegen und offene Punkte einarbeiten |) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 432 Tm (Status: in Bearbeitung) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 418 Tm (Eine Freigabe ist erst erfolgt, wenn die offenen Muss-Entscheidungen gekl\344rt und die) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 405 Tm (freigegebene Version mit Datum dokumentiert wurde.) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 372 Tm (3. Ausgangssituation) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 343 Tm (Climate Cubes erfassen Umweltdaten. Die Ger\344te sollen auch an abgelegenen Einsatzorten ohne) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 330 Tm (verl\344ssliche Kommunikationsinfrastruktur betrieben werden k\366nnen. Als Beispiel wurde ein) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 317 Tm (Einsatz in Peru genannt. LoRaWAN kann deshalb nicht vorausgesetzt werden.) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 297 Tm (Nach bisheriger Vorgabe sollen mehrere als Slave betriebene Climate Cubes ihre Messdaten) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 284 Tm (regelm\344\337ig erfassen, lokal sichern und direkt per LoRa an einen Master Climate Cube) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 271 Tm (\374bertragen. Der Master soll die Daten mehrerer Slaves zentral speichern.) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 251 Tm (Am 11.08.2026 wurden zwei Raspberry Pi Pico 2 W mit CircuitPython 10.2.1 und) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 238 Tm (Waveshare-SX1262-LoRa-Hardware untersucht. Die direkte bidirektionale LoRa-Kommunikation) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 225 Tm (wurde in einem isolierten Test nachgewiesen. Dieser Test ist eine technische Voruntersuchung) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 212 Tm (und ersetzt keine fachliche Freigabe des Gesamtsystems.) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 179 Tm (4. Zielbestimmung) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 141 Tm (4.1 Muss-Ziele) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 113 Tm (ID | Ziel) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 98 Tm (ID: LZ-M-01 | Ziel: Ein Slave erfasst die festgelegten Umweltdaten in einem vorgesehenen Rhythmus von 15 Minuten.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 83 Tm (ID: LZ-M-02 | Ziel: Ein Slave speichert seine eigenen Messdaten f\374r mindestens ein Jahr lokal als) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 72 Tm (Ausfallsicherung.) Tj ET
+BT /F1 8 Tf 0.35 g 1 0 0 1 275 28 Tm (Seite 3) Tj ET 0 g
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 4512 >>
+stream
+BT /F1 8 Tf 1 0 0 1 57 790 Tm (ID: LZ-M-03 | Ziel: Ein Slave \374bertr\344gt jeden erzeugten Messdatensatz ohne LoRaWAN direkt per LoRa an einen) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 779 Tm (Master; eine zeitliche Verz\366gerung der \334bertragung ist zul\344ssig.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 764 Tm (ID: LZ-M-04 | Ziel: Ein Master empf\344ngt und speichert die Daten mehrerer Slaves zentral.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 749 Tm (ID: LZ-M-05 | Ziel: Jeder Datensatz enth\344lt einen genauen Zeitstempel des zugeh\366rigen Messzeitpunkts.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 734 Tm (ID: LZ-M-06 | Ziel: Das System funktioniert ohne Internet, Mobilfunk, WLAN und LoRaWAN-Infrastruktur.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 719 Tm (ID: LZ-M-07 | Ziel: Herkunft und Vollst\344ndigkeit gespeicherter Datens\344tze sind nachvollziehbar.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 704 Tm (ID: LZ-M-08 | Ziel: Anforderungen, Entwurf, Implementierung und Tests werden nachvollziehbar dokumentiert.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 689 Tm (ID: LZ-M-09 | Ziel: Der Master best\344tigt eine \334bertragung erst nach erfolgreicher zentraler Speicherung;) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 678 Tm (unbest\344tigte Datens\344tze bleiben am Slave f\374r eine sp\344tere \334bertragung erhalten.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 655 Tm (4.2 Soll-Ziele) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 627 Tm (ID | Ziel) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 612 Tm (ID: LZ-S-01 | Ziel: Ein Master soll f\374r ungef\344hr zehn Slaves ausgelegt sein.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 597 Tm (ID: LZ-S-02 | Ziel: Funk-, Sensor- und Speicherfehler sollen erkennbar dokumentiert werden.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 582 Tm (ID: LZ-S-03 | Ziel: Fehlende oder doppelte Datens\344tze sollen erkennbar sein.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 567 Tm (ID: LZ-S-04 | Ziel: Konfiguration und Datenausgabe sollen ohne Quellcode\344nderung je Ger\344terolle nachvollziehbar) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 556 Tm (sein.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 541 Tm (ID: LZ-S-05 | Ziel: Die Software soll sp\344ter um weitere Messwerte oder Ger\344te erweiterbar sein.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 526 Tm (ID: LZ-S-06 | Ziel: Messdaten sollen bei technischer Umsetzbarkeit \374ber andere Slaves an den Master) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 515 Tm (weitergeleitet werden k\366nnen.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 492 Tm (4.3 Kann-Ziele) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 464 Tm (ID | Ziel) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 449 Tm (ID: LZ-K-02 | Ziel: Bodenfeuchte und Bodentemperatur k\366nnen als optionale Messgr\366\337en erfasst werden.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 434 Tm (ID: LZ-K-03 | Ziel: Zus\344tzliche Diagnose- oder Wartungsdaten k\366nnen gespeichert werden.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 411 Tm (4.4 Abgrenzung) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 387 Tm (Nicht Bestandteil des derzeit best\344tigten Kernauftrags sind:) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 366 Tm (- LoRaWAN-Betrieb,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 350 Tm (- Cloud- oder Internetanbindung,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 334 Tm (- eine Webplattform oder grafische Auswertungsoberfl\344che,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 318 Tm (- ein vollautomatisches dynamisches Mesh-Netz mit beliebig vielen Weiterleitungsstufen; die) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 305 Tm (begrenzte Weiterleitung \374ber andere Slaves bleibt ein Soll-Ziel,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 289 Tm (- die Batteriespannung als priorisierter Messwert,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 273 Tm (- Bodensensoren als verpflichtender Bestandteil des Kernsystems.) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 241 Tm (5. Stakeholder Und Rollen) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 203 Tm (5.1 Projektrollen) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 175 Tm (Rolle | Interesse / Verantwortung) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 160 Tm (Rolle: fachlicher Auftraggeber beziehungsweise Ansprechpartner | Interesse / Verantwortung: legt fachliche Ziele,) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 149 Tm (Messumfang, Priorit\344ten und Abnahmekriterien fest) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 134 Tm (Rolle: betreuender Professor | Interesse / Verantwortung: begleitet Vorgehen, Dokumentation und wissenschaftliche) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 123 Tm (Einordnung) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 108 Tm (Rolle: Entwickler | Interesse / Verantwortung: spezifiziert, entwirft, implementiert, testet und dokumentiert das) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 97 Tm (System) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 82 Tm (Rolle: sp\344tere Betreiber | Interesse / Verantwortung: installieren, konfigurieren und warten die Climate Cubes) Tj ET
+BT /F1 8 Tf 0.35 g 1 0 0 1 275 28 Tm (Seite 4) Tj ET 0 g
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 15 0 R >>
+endobj
+15 0 obj
+<< /Length 4115 >>
+stream
+BT /F1 8 Tf 1 0 0 1 57 790 Tm (Rolle: Datenauswerter | Interesse / Verantwortung: entnehmen gespeicherte Daten und m\374ssen sie eindeutig) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 779 Tm (interpretieren k\366nnen) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 765 Tm (Die genaue organisatorische Zuordnung von Auftraggeber, Eigent\374mer und Freigabeberechtigten) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 752 Tm (ist noch schriftlich zu best\344tigen.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 723 Tm (5.2 Systemrollen) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 699 Tm (Eine Systemrolle beschreibt das Verhalten eines Ger\344ts oder einer Person im Betrieb.) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 675 Tm (Systemrolle | Erwartete F\344higkeiten) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 660 Tm (Systemrolle: Slave Climate Cube | Erwartete F\344higkeiten: Messwerte erfassen, Datensatz bilden, lokal sichern, an) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 649 Tm (Master senden und Fehler festhalten) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 634 Tm (Systemrolle: Master Climate Cube | Erwartete F\344higkeiten: mehrere Slaves unterscheiden, Pakete empfangen,) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 623 Tm (pr\374fen, den Messzeitbezug erhalten und zentral speichern) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 608 Tm (Systemrolle: Betreiber / Installateur | Erwartete F\344higkeiten: Ger\344terolle und Kennung festlegen, Zeitreferenz) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 597 Tm (einstellen beziehungsweise pr\374fen, Funkkonfiguration pr\374fen und gespeicherte Daten entnehmen) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 582 Tm (Systemrolle: Datenauswerter | Erwartete F\344higkeiten: Dateien einem Master und Slave zuordnen sowie Felder,) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 571 Tm (Einheiten, Zeitbezug und Fehlerstatus verstehen) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 544 Tm (6. Produkteinsatz) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 506 Tm (6.1 Einsatzbereiche) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 481 Tm (- station\344re Umweltmessungen,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 465 Tm (- abgelegene Standorte ohne Kommunikationsinfrastruktur,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 449 Tm (- mehrere r\344umlich verteilte Slave-Ger\344te mit einem zentralen Master,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 433 Tm (- langfristige Speicherung f\374r eine sp\344tere wissenschaftliche Auswertung.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 405 Tm (6.2 Betriebsbedingungen) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 380 Tm (- dauerhafter beziehungsweise langandauernder Akkubetrieb ist vorgesehen,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 364 Tm (- Funkverbindungen k\366nnen zeitweise ausfallen,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 348 Tm (- ein manueller Zugriff auf die SD-Karten ist m\366glich, aber nicht jederzeit,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 332 Tm (- ein Internetzugang darf nicht erforderlich sein,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 316 Tm (- die genaue Temperatur-, Feuchte- und Schutzklasse der Geh\344use ist noch nicht) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 303 Tm (spezifiziert.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 275 Tm (6.3 Benutzerkenntnisse) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 251 Tm (Betreiber sollen die Ger\344te anhand einer Betriebs- und Konfigurationsanleitung einrichten) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 238 Tm (k\366nnen. Datenauswerter sollen die gespeicherten Dateien ohne Kenntnis des Quellcodes) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 225 Tm (interpretieren k\366nnen.) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 192 Tm (7. Funktionale Anforderungen) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 154 Tm (7.1 Messung Und Datensatz) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 126 Tm (ID | Priorit\344t | Anforderung | Fachliches Abnahmekriterium) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 111 Tm (ID: LH-F-001 | Priorit\344t: Muss | Anforderung: Ein Slave erzeugt regelm\344\337ig einen Messdatensatz. | Fachliches) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 100 Tm (Abnahmekriterium: Im vorgesehenen Betrieb entsteht je Messzyklus ein nachvollziehbarer Datensatz.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 85 Tm (ID: LH-F-002 | Priorit\344t: Muss | Anforderung: Der vorgesehene Messrhythmus betr\344gt 15 Minuten; jeder Datensatz) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 74 Tm (tr\344gt den genauen Zeitpunkt seiner Messung. | Fachliches Abnahmekriterium: Der gespeicherte Messzeitstempel) Tj ET
+BT /F1 8 Tf 0.35 g 1 0 0 1 275 28 Tm (Seite 5) Tj ET 0 g
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 17 0 R >>
+endobj
+17 0 obj
+<< /Length 6768 >>
+stream
+BT /F1 8 Tf 1 0 0 1 57 790 Tm (entspricht dem tats\344chlichen Messzeitpunkt innerhalb der noch festzulegenden Genauigkeit.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 775 Tm (ID: LH-F-003 | Priorit\344t: Muss | Anforderung: Ein Datensatz enth\344lt alle neun best\344tigten SEN66-Messgr\366\337en) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 764 Tm (aus Abschnitt 8.1. | Fachliches Abnahmekriterium: Lufttemperatur, relative Luftfeuchtigkeit, CO2, PM1, PM2.5, PM4,) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 753 Tm (PM10, VOC-Index und NOx-Index sind vorhanden oder eindeutig als fehlend markiert.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 738 Tm (ID: LH-F-004 | Priorit\344t: Muss | Anforderung: Fehlende Messwerte bleiben als fehlend erkennbar. | Fachliches) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 727 Tm (Abnahmekriterium: Ein Teilausfall wird nicht als g\374ltiger Zahlenwert ausgegeben.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 704 Tm (7.2 Lokale Speicherung Am Slave) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 676 Tm (ID | Priorit\344t | Anforderung | Fachliches Abnahmekriterium) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 661 Tm (ID: LH-F-010 | Priorit\344t: Muss | Anforderung: Jeder Slave speichert seine eigenen Messdatens\344tze f\374r mindestens) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 650 Tm (ein Jahr lokal auf SD-Karte. | Fachliches Abnahmekriterium: Bei einem 15-Minuten-Messrhythmus k\366nnen mindestens) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 639 Tm (35.040 aufeinanderfolgende Datens\344tze ohne \334berschreiben gespeichert werden.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 624 Tm (ID: LH-F-011 | Priorit\344t: Muss | Anforderung: Bereits gespeicherte Messdaten d\374rfen beim Neustart nicht) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 613 Tm (unbeabsichtigt \374berschrieben werden. | Fachliches Abnahmekriterium: Ein Neustart erh\344lt vorhandene Dateien) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 602 Tm (beziehungsweise Datens\344tze.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 587 Tm (ID: LH-F-012 | Priorit\344t: Soll | Anforderung: Fehler beim lokalen Speichern werden sichtbar dokumentiert. |) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 576 Tm (Fachliches Abnahmekriterium: Ein Schreibfehler ist nach dem Betrieb nachvollziehbar.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 553 Tm (7.3 LoRa-\334bertragung) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 525 Tm (ID | Priorit\344t | Anforderung | Fachliches Abnahmekriterium) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 510 Tm (ID: LH-F-020 | Priorit\344t: Muss | Anforderung: Ein Slave \374bertr\344gt jeden im 15-Minuten-Messrhythmus erzeugten) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 499 Tm (Datensatz per LoRa Peer-to-Peer an den Master; der genaue \334bertragungszeitpunkt ist nicht kritisch. | Fachliches) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 488 Tm (Abnahmekriterium: Der Master empf\344ngt den zuvor lokal gesicherten Datensatz mit unver\344nderten fachlichen Werten) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 477 Tm (und unver\344ndertem Messzeitbezug.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 462 Tm (ID: LH-F-021 | Priorit\344t: Muss | Anforderung: LoRaWAN wird f\374r den Datenweg nicht vorausgesetzt. | Fachliches) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 451 Tm (Abnahmekriterium: Der vollst\344ndige Ablauf funktioniert ohne LoRaWAN-Gateway.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 436 Tm (ID: LH-F-022 | Priorit\344t: Muss | Anforderung: Master und Slave verwenden eine kompatible, dokumentierte) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 425 Tm (Funkkonfiguration. | Fachliches Abnahmekriterium: Beide Rollen kommunizieren mit demselben freigegebenen) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 414 Tm (Parametersatz.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 399 Tm (ID: LH-F-023 | Priorit\344t: Muss | Anforderung: Der Master sendet eine Empfangsbest\344tigung erst, nachdem ein) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 388 Tm (g\374ltiger Datensatz erfolgreich auf seiner SD-Karte gespeichert wurde. | Fachliches Abnahmekriterium: Bei Empfang) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 377 Tm (ohne erfolgreiche zentrale Speicherung wird kein Erfolgs-ACK gesendet.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 362 Tm (ID: LH-F-024 | Priorit\344t: Soll | Anforderung: Ein Slave kann Messdaten eines anderen Slaves empfangen und in) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 351 Tm (Richtung Master weiterleiten, sofern die Mesh-Erweiterung technisch umsetzbar ist. | Fachliches Abnahmekriterium:) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 340 Tm (In einem freigegebenen Testszenario erreicht ein Datensatz den Master \374ber mindestens einen Zwischen-Slave; eine) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 329 Tm (begr\374ndete Nichtumsetzung wird dokumentiert.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 314 Tm (ID: LH-F-025 | Priorit\344t: Muss | Anforderung: Der Slave markiert einen Datensatz erst nach einem passenden ACK) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 303 Tm (als erfolgreich \374bertragen; ohne ACK bleibt er lokal als ausstehend erhalten und wird sp\344ter erneut gesendet. |) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 292 Tm (Fachliches Abnahmekriterium: Ein fehlendes ACK f\374hrt weder zum L\366schen noch zur Erfolgsmarkierung des) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 281 Tm (Datensatzes.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 258 Tm (7.4 Masterbetrieb) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 230 Tm (ID | Priorit\344t | Anforderung | Fachliches Abnahmekriterium) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 215 Tm (ID: LH-F-030 | Priorit\344t: Muss | Anforderung: Der Master empf\344ngt Messdaten mehrerer Slaves. | Fachliches) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 204 Tm (Abnahmekriterium: Datens\344tze verschiedener Slaves werden korrekt unterschieden.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 189 Tm (ID: LH-F-031 | Priorit\344t: Soll | Anforderung: Der Master ist konzeptionell f\374r ungef\344hr zehn Slaves ausgelegt.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 178 Tm (| Fachliches Abnahmekriterium: Datenmodell und Ablauf besitzen keine feste Grenze unterhalb von zehn Slaves.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 163 Tm (ID: LH-F-032 | Priorit\344t: Muss | Anforderung: Der Master pr\374ft empfangene Datens\344tze vor der regul\344ren) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 152 Tm (Speicherung. | Fachliches Abnahmekriterium: Ung\374ltige oder nicht unterst\374tzte Pakete werden nicht still als) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 141 Tm (g\374ltige Messung gespeichert.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 126 Tm (ID: LH-F-033 | Priorit\344t: Muss | Anforderung: Der Master speichert g\374ltige Messdaten zentral auf SD-Karte und) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 115 Tm (ist f\374r ein Jahr Datenaufkommen ausgelegt. | Fachliches Abnahmekriterium: Die zentrale Ablage enth\344lt Messwerte) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 104 Tm (und Herkunftsinformationen; f\374r zehn Slaves sind mindestens 350.400 Datens\344tze speicherbar.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 89 Tm (ID: LH-F-034 | Priorit\344t: Muss | Anforderung: Der Master speichert den genauen Messzeitstempel jedes Datensatzes;) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 78 Tm (ein zus\344tzlicher Empfangszeitstempel ist optional. | Fachliches Abnahmekriterium: Der zentral gespeicherte) Tj ET
+BT /F1 8 Tf 0.35 g 1 0 0 1 275 28 Tm (Seite 6) Tj ET 0 g
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 19 0 R >>
+endobj
+19 0 obj
+<< /Length 4160 >>
+stream
+BT /F1 8 Tf 1 0 0 1 57 790 Tm (Messzeitstempel bezeichnet den Messzeitpunkt und nicht lediglich Empfang oder Speicherung.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 775 Tm (ID: LH-F-035 | Priorit\344t: Soll | Anforderung: Der Master speichert Empfangsinformationen, sofern diese f\374r die) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 764 Tm (Bewertung ben\366tigt werden. | Fachliches Abnahmekriterium: RSSI, SNR oder Empfangsstatus sind entsprechend der) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 753 Tm (freigegebenen Struktur vorhanden.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 730 Tm (7.5 Konfiguration Und Datenentnahme) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 702 Tm (ID | Priorit\344t | Anforderung | Fachliches Abnahmekriterium) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 687 Tm (ID: LH-F-040 | Priorit\344t: Muss | Anforderung: Master und Slaves besitzen eindeutige, dokumentierte Rollen und) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 676 Tm (Kennungen. | Fachliches Abnahmekriterium: Ein Datenauswerter kann jeden Datensatz einem Ger\344t zuordnen.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 661 Tm (ID: LH-F-041 | Priorit\344t: Muss | Anforderung: Die f\374r Messzeitstempel verwendete Zeitreferenz kann vor dem) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 650 Tm (Einsatz eingestellt, synchronisiert beziehungsweise gepr\374ft werden. | Fachliches Abnahmekriterium: Vorgehen,) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 639 Tm (Zeitquelle und verwendete Zeitzone sind dokumentiert und reproduzierbar.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 624 Tm (ID: LH-F-042 | Priorit\344t: Muss | Anforderung: Gespeicherte Daten k\366nnen ohne Spezialinfrastruktur entnommen) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 613 Tm (werden. | Fachliches Abnahmekriterium: Dateien sind \374ber SD-Karte oder einen freigegebenen lokalen Weg lesbar.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 598 Tm (ID: LH-F-043 | Priorit\344t: Muss | Anforderung: Datenformat und Einheiten sind dokumentiert. | Fachliches) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 587 Tm (Abnahmekriterium: Eine gespeicherte Datei kann ohne Quellcodeanalyse interpretiert werden.) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 560 Tm (8. Messdaten) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 522 Tm (8.1 Verbindliche SEN66-Messgr\366\337en) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 498 Tm (Auf der untersuchten Hardware war ein SEN66 angeschlossen. Nach fachlicher Best\344tigung vom) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 485 Tm (12.08.2026 m\374ssen alle folgenden im Bestandscode ausgelesenen SEN66-Werte gespeichert und) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 472 Tm (\374bertragen werden:) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 451 Tm (- Lufttemperatur,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 435 Tm (- relative Luftfeuchtigkeit,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 419 Tm (- CO2,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 403 Tm (- PM1,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 387 Tm (- PM2.5,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 371 Tm (- PM4,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 355 Tm (- PM10,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 339 Tm (- VOC-Index,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 323 Tm (- NOx-Index.) Tj ET
+BT /F2 12 Tf 1 0 0 1 52 295 Tm (8.2 Optionale Messquellen) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 271 Tm (Bodenfeuchte und Bodentemperatur sind nach fachlicher R\374ckmeldung vom 12.08.2026 optionale) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 258 Tm (Messgr\366\337en und keine Muss-Anforderungen. Beim Hardwaretermin standen keine funktionsf\344hig) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 245 Tm (angeschlossenen Bodensensoren f\374r einen Test zur Verf\374gung.) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 225 Tm (Nur falls diese optionale Funktion umgesetzt wird, sind zu kl\344ren:) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 208 Tm (- welche konkreten Sensoren verwendet werden,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 192 Tm (- welche Einheiten und Kalibrierverfahren gelten,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 176 Tm (- welche GPIOs beziehungsweise Anschl\374sse vorgesehen sind,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 160 Tm (- wie fehlende Bodensensoren behandelt werden.) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 128 Tm (9. Nicht-Funktionale Anforderungen) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 95 Tm (ID | Priorit\344t | Anforderung | Nachweis) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 80 Tm (ID: LH-NF-001 | Priorit\344t: Muss | Anforderung: Offline-F\344higkeit | Nachweis: Systemtest ohne Internet, WLAN,) Tj ET
+BT /F1 8 Tf 0.35 g 1 0 0 1 275 28 Tm (Seite 7) Tj ET 0 g
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 21 0 R >>
+endobj
+21 0 obj
+<< /Length 4826 >>
+stream
+BT /F1 8 Tf 1 0 0 1 57 790 Tm (Mobilfunk und LoRaWAN) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 775 Tm (ID: LH-NF-002 | Priorit\344t: Muss | Anforderung: Datenzuverl\344ssigkeit | Nachweis: Lokale Slave-Daten bleiben bei) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 764 Tm (Funkunterbrechung erhalten) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 749 Tm (ID: LH-NF-003 | Priorit\344t: Muss | Anforderung: Nachvollziehbarkeit | Nachweis: Kennung, Zeitbezug, Datenformat,) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 738 Tm (Einheiten und Status sind dokumentiert) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 723 Tm (ID: LH-NF-004 | Priorit\344t: Soll | Anforderung: Robustheit | Nachweis: Definierte Reaktion auf Sensor-, SD-, Funk-) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 712 Tm (und Neustartfehler) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 697 Tm (ID: LH-NF-005 | Priorit\344t: Soll | Anforderung: Wartbarkeit | Nachweis: Messung, Speicherung, Protokoll und) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 686 Tm (Rollensteuerung sind nachvollziehbar getrennt) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 671 Tm (ID: LH-NF-006 | Priorit\344t: Soll | Anforderung: Erweiterbarkeit | Nachweis: Neue Messwerte oder Slaves k\366nnen) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 660 Tm (ohne vollst\344ndigen Neuentwurf erg\344nzt werden) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 645 Tm (ID: LH-NF-007 | Priorit\344t: Soll | Anforderung: Energieeffizienz | Nachweis: Mess- und Funkaktivitaet werden auf) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 634 Tm (den notwendigen Umfang begrenzt) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 619 Tm (ID: LH-NF-008 | Priorit\344t: Muss | Anforderung: Reproduzierbarkeit | Nachweis: Softwarestand, Konfiguration und) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 608 Tm (Testbedingungen sind versioniert dokumentiert) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 593 Tm (ID: LH-NF-009 | Priorit\344t: Muss | Anforderung: Funkkonformit\344t | Nachweis: Frequenz, Sendeleistung und) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 582 Tm (Sendeverhalten werden vor Feldeinsatz f\374r den Einsatzort freigegeben) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 567 Tm (ID: LH-NF-010 | Priorit\344t: Muss | Anforderung: Speicherkapazit\344t | Nachweis: Slave- und Master-SD besitzen) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 556 Tm (Kapazit\344t f\374r mindestens ein Jahr Messdaten zuz\374glich festgelegter Sicherheitsreserve) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 529 Tm (10. Randbedingungen) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 496 Tm (ID | Randbedingung | Status) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 481 Tm (ID: LH-R-001 | Randbedingung: Programmiersprache Python | Status: vorgegeben) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 466 Tm (ID: LH-R-002 | Randbedingung: Zielhardware Raspberry Pi Pico 2 W mit RP2350A | Status: am 11.08.2026 nachgewiesen) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 451 Tm (ID: LH-R-003 | Randbedingung: CircuitPython 10.2.1 war auf beiden Testger\344ten installiert | Status: nachgewiesen) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 436 Tm (ID: LH-R-004 | Randbedingung: Waveshare Pico-LoRa-SX1262-868M | Status: laut Projektvorgabe und Funktionstest) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 421 Tm (ID: LH-R-005 | Randbedingung: direkte LoRa-Peer-to-Peer-Kommunikation | Status: vorgegeben und technisch) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 410 Tm (voruntersucht) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 395 Tm (ID: LH-R-006 | Randbedingung: kein LoRaWAN als erforderlicher Betriebsweg | Status: vorgegeben) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 380 Tm (ID: LH-R-007 | Randbedingung: lokale SD-Karten an Slaves und Master | Status: fachlich vorgesehen; konkrete) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 369 Tm (Master-Ausf\374hrung noch zu best\344tigen) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 354 Tm (ID: LH-R-008 | Randbedingung: Praktikumszeitraum 03.08.2026 bis 06.12.2026 | Status: laut Vertrag) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 327 Tm (11. Liefergegenst\344nde) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 298 Tm (Zum Projektabschluss werden mindestens erwartet:) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 277 Tm (1. freigegebenes Lastenheft,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 261 Tm (2. freigegebenes beziehungsweise abgestimmtes Pflichtenheft,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 245 Tm (3. dokumentierte Systemrollen und Use Cases,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 229 Tm (4. versionierter Quellcode f\374r die vereinbarten Master- und Slave-Funktionen,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 213 Tm (5. Konfigurations- und Betriebsanleitung,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 197 Tm (6. dokumentiertes Daten- und Funkprotokoll,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 181 Tm (7. Testkonzept, Testprotokolle und Testergebnisse,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 165 Tm (8. Architektur- und Entscheidungsdokumentation,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 149 Tm (9. fortlaufendes Projekttagebuch,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 133 Tm (10. abschlie\337endes wissenschaftliches Paper im vereinbarten Format,) Tj ET
+BT /F1 10 Tf 1 0 0 1 64 117 Tm (11. reproduzierbarer Demonstrationsstand.) Tj ET
+BT /F2 15 Tf 1 0 0 1 52 85 Tm (12. Fachliche Abnahme) Tj ET
+BT /F1 8 Tf 0.35 g 1 0 0 1 275 28 Tm (Seite 8) Tj ET 0 g
+endstream
+endobj
+22 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 23 0 R >>
+endobj
+23 0 obj
+<< /Length 1864 >>
+stream
+BT /F1 10 Tf 1 0 0 1 52 790 Tm (Die fachliche Abnahme soll auf freigegebenen Testszenarien beruhen. Mindestens vorgesehen) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 777 Tm (sind:) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 753 Tm (ID | Abnahmeszenario) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 738 Tm (ID: LA-01 | Abnahmeszenario: Ein Slave erzeugt, speichert und \374bertr\344gt einen vollst\344ndigen Messdatensatz.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 723 Tm (ID: LA-02 | Abnahmeszenario: Der Master empf\344ngt, pr\374ft, zeitlich referenziert und speichert den Datensatz.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 708 Tm (ID: LA-03 | Abnahmeszenario: Bei nicht erreichbarem Master bleiben die Daten auf dem Slave erhalten.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 693 Tm (ID: LA-04 | Abnahmeszenario: Datens\344tze mehrerer Slaves werden korrekt unterschieden.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 678 Tm (ID: LA-05 | Abnahmeszenario: Neustart, fehlende SD-Karte, ung\374ltiges Funkpaket und fehlender Sensor f\374hren zu) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 667 Tm (definiertem Verhalten.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 652 Tm (ID: LA-06 | Abnahmeszenario: Datenformat, Konfiguration und Softwarestand sind anhand der Dokumentation) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 641 Tm (reproduzierbar.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 626 Tm (ID: LA-07 | Abnahmeszenario: Der Master sendet erst nach erfolgreicher zentraler Speicherung ein ACK; ohne ACK) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 615 Tm (bleibt der Datensatz am Slave ausstehend.) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 600 Tm (ID: LA-08 | Abnahmeszenario: Die nachgewiesene Speicherkapazit\344t reicht je Slave und am Master f\374r mindestens) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 589 Tm (ein Jahr Datenaufkommen mit Sicherheitsreserve.) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 575 Tm (Konkrete Toleranzen, Testdauer, Anzahl realer Slaves und Reichweitenszenarien sind noch) Tj ET
+BT /F1 10 Tf 1 0 0 1 52 562 Tm (festzulegen.) Tj ET
+
+endstream
+endobj
+24 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 25 0 R >>
+endobj
+25 0 obj
+<< /Length 716 >>
+stream
+BT /F2 15 Tf 1 0 0 1 52 697 Tm (13. Freigabevermerk) Tj ET
+BT /F2 8 Tf 1 0 0 1 52 664 Tm (Version | Datum | Entscheidung | Person / Rolle | Bemerkung) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 649 Tm (Version: 0.1 | Datum: 11.08.2026 | Entscheidung: Entwurf erstellt | Person / Rolle: Immanuel Mauch | Bemerkung:) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 638 Tm (fachliche Pr\374fung ausstehend) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 623 Tm (Version: 0.2 | Datum: 12.08.2026 | Entscheidung: fachliche R\374ckmeldungen zu Sensoren, Zeitbezug, Speicherung und) Tj ET
+BT /F1 8 Tf 1 0 0 1 57 612 Tm (ACK eingearbeitet | Person / Rolle: Immanuel Mauch | Bemerkung: zur fachlichen Pr\374fung) Tj ET
+BT /F1 8 Tf 0.35 g 1 0 0 1 275 28 Tm (Seite 10) Tj ET 0 g
+endstream
+endobj
+xref
+0 26
+0000000000 65535 f 
+0000000017 00000 n 
+0000000066 00000 n 
+0000000186 00000 n 
+0000000283 00000 n 
+0000000000 00000 f 
+0000000385 00000 n 
+0000000521 00000 n 
+0000001161 00000 n 
+0000001297 00000 n 
+0000002274 00000 n 
+0000002412 00000 n 
+0000006497 00000 n 
+0000006635 00000 n 
+0000011200 00000 n 
+0000011338 00000 n 
+0000015506 00000 n 
+0000015644 00000 n 
+0000022465 00000 n 
+0000022603 00000 n 
+0000026816 00000 n 
+0000026954 00000 n 
+0000031833 00000 n 
+0000031971 00000 n 
+0000033888 00000 n 
+0000034026 00000 n 
+trailer
+<< /Size 26 /Root 1 0 R >>
+startxref
+34794
+%%EOF

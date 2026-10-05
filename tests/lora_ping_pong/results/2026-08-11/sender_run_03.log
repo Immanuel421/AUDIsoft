@@ -1,0 +1,23 @@
+Zurückverfolgung (jüngste Aufforderung zuletzt):
+  Datei "code.py", Zeile 81, in <module>
+KeyboardInterrupt: 
+
+Programm wird ausgeführt.
+[CYW43] Failed to start CYW43
+[CYW43] Failed to start CYW43
+Automatisches Neuladen ist aktiviert. Speichere Dateien einfach über USB, um sie auszuführen, oder gib REPL ein, um sie zu deaktivieren.
+
+Drücke eine beliebige Taste um REPL zu betreten. Drücke STRG-D zum neuladen.
+[CYW43] Failed to start CYW43
+[CYW43] Failed to start CYW43
+[CYW43] Failed to start CYW43
+[CYW43] Failed to start CYW43
+weicher reboot
+
+Automatisches Neuladen ist aktiviert. Speichere Dateien einfach über USB, um sie auszuführen, oder gib REPL ein, um sie zu deaktivieren.
+code.py Ausgabe:
+LoRa init: ERR_NONE
+Gesendet: b'PING:0000' 9 ERR_NONE
+Empfangen: b'PONG:0000' ERR_NONE RSSI: -15.0 SNR: 13.0
+Gesendet: b'PING:0001' 9 ERR_NONE
+Empfangen: b'PONG:0001' ERR_NONE RSSI: -15.0 SNR: 12.75

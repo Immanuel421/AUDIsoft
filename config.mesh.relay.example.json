@@ -1,0 +1,28 @@
+{
+  "role": "slave",
+  "device_id": "C02",
+  "network_mode": "mesh",
+  "master_id": "M01",
+  "next_hop_id": "C01",
+  "hop_limit": 3,
+  "return_next_hops": {
+    "C03": "C03"
+  },
+  "time_epoch_utc": null,
+  "measurement_interval_s": 900,
+  "soil_moisture": {
+    "enabled": false
+  },
+  "plausibility_limits": {},
+  "ack_timeout_ms": 3000,
+  "sequence_query_retry_s": 60,
+  "receive_timeout_ms": 30000,
+  "radio": {
+    "frequency_mhz": 868.1,
+    "bandwidth_khz": 125.0,
+    "spreading_factor": 7,
+    "coding_rate": 5,
+    "tx_power_dbm": 10,
+    "sync_word": 18
+  }
+}
