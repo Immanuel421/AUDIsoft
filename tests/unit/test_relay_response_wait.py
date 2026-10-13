@@ -34,11 +34,13 @@ class RelayResponseWaitTests(unittest.TestCase):
         self.assertEqual((ack.next_hop_id, ack.sequence_number), ('C02', 5))
         self.assertFalse(any(level == 'error' for level, _ in self.diagnostics.messages))
 
-    def test_sequence_query_waits_past_overheard_forwarded_query(self):
+    def test_sequence_query_and_response_are_forwarded_independently(self):
         incoming = self.codec.encode_sequence_query(SequenceQuery('C02', 'M01', 'C01', 0, 3))
         overheard = self.codec.encode_sequence_query(SequenceQuery('C03', 'M01', 'C02', 0, 3))
         response = self.codec.encode_sequence_response(SequenceResponse('M01', 'C02', 'C01', 8, 0, 3))
         relay, radio = self.relay([incoming, overheard, response])
+        self.assertTrue(relay.process_next(100))
+        self.assertFalse(relay.process_next(100))
         self.assertTrue(relay.process_next(100))
         self.assertEqual(len(radio.sent), 2)
         self.assertEqual(self.codec.decode_sequence_response(radio.sent[1]).next_sequence, 8)
@@ -50,10 +52,10 @@ class RelayResponseWaitTests(unittest.TestCase):
             self.assertIsNone(relay._wait_for_response('A', 'C02', 5))
         self.assertEqual(len(radio.receives), 3)
 
-    def test_timeout_does_not_forward_any_response(self):
+    def test_sequence_query_is_forwarded_without_waiting_for_response(self):
         query = self.codec.encode_sequence_query(SequenceQuery('C02', 'M01', 'C01', 0, 3))
         relay, radio = self.relay([query, None])
-        self.assertFalse(relay.process_next(100))
+        self.assertTrue(relay.process_next(100))
         self.assertEqual(len(radio.sent), 1)
 
 

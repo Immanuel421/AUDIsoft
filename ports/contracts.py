@@ -46,6 +46,19 @@ class SlaveStoragePort:
     def latest_measurement_timestamp(self, device_id):
         raise NotImplementedError
 
+    def queue_diagnostic_event(self, event_code, event_state, repeat_count):
+        """Protokolliert ein lokales Ereignis und stellt es zur Uebertragung bereit."""
+        raise NotImplementedError
+
+    def pending_diagnostic_events(self, device_id, reference_sequence,
+                                  destination_id, next_hop_id, hop_limit):
+        """Liefert die beim naechsten Messdatensatz zu sendenden Ereignisse."""
+        raise NotImplementedError
+
+    def mark_diagnostic_events_transmitted(self, events):
+        """Entfernt erst nach dem ACK des zugeordneten Messdatensatzes Ereignisse."""
+        raise NotImplementedError
+
 
 class MasterStoragePort:
     def has_received(self, device_id, sequence_number):

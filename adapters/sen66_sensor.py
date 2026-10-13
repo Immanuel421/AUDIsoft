@@ -13,6 +13,8 @@ from domain.measurement import (
 )
 
 class Sen66SensorAdapter(SensorPort):
+    BACKGROUND_SERVICE_INTERVAL_S = 0.25
+
     def __init__(self, i2c, warmup_s=60, soil_sensor=None,
                  soil_moisture_sensor=None):
         self._i2c = i2c
@@ -22,6 +24,13 @@ class Sen66SensorAdapter(SensorPort):
         self._sensor = None
         self._phase = None
         self._start_error = False
+        self._background_service = None
+        self._next_background_service_at = 0
+
+    def set_background_service(self, service):
+        """Runs one short communication task while the sensor is warming up."""
+        self._background_service = service
+        self._next_background_service_at = 0
 
     def read_measurement(self):
         self.start_measurement()
@@ -29,6 +38,13 @@ class Sen66SensorAdapter(SensorPort):
             result = self.poll_measurement()
             if result is not None:
                 return result
+            now = time.monotonic()
+            if (self._background_service is not None
+                    and now >= self._next_background_service_at):
+                self._background_service()
+                self._next_background_service_at = (
+                    now + self.BACKGROUND_SERVICE_INTERVAL_S
+                )
             time.sleep(0.05)
 
     def start_measurement(self):

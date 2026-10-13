@@ -38,13 +38,23 @@ def build_diagnostics():
     return DiagnosticsAdapter(), None
 
 
-def attach_oled(diagnostics):
+def release_previous_display_resources():
+    """Free an OLED I2C bus left behind by a CircuitPython soft reload."""
+    try:
+        import displayio
+        displayio.release_displays()
+    except Exception:
+        pass
+    gc.collect()
+
+
+def attach_oled(diagnostics, i2c=None):
     oled = None
     try:
         set_startup_stage("OLED driver")
         from adapters.oled_display import OledDisplayAdapter
 
-        oled = OledDisplayAdapter()
+        oled = OledDisplayAdapter(i2c=i2c)
         oled.show_startup()
     except Exception as exc:
         print("ERROR: OLED initialization failed:", exc)
@@ -161,7 +171,8 @@ def build_sensor(config, diagnostics, oled):
     return sensor
 
 
-def build_slave(config, diagnostics, oled, storage, clock, radio):
+def build_slave(config, diagnostics, oled, storage, clock, radio,
+                diagnostic_storage):
     sensor = build_sensor(config, diagnostics, oled)
     set_startup_stage("slave controller")
     from application.slave_controller import SlaveController
@@ -177,9 +188,17 @@ def build_slave(config, diagnostics, oled, storage, clock, radio):
         diagnostics,
         int(config["ack_timeout_ms"]),
         master_id=config.get("master_id"),
+        sequence_query_timeout_ms=int(config.get(
+            "sequence_query_timeout_ms",
+            config["ack_timeout_ms"] * int(config.get("hop_limit", 1)),
+        )),
+        sequence_query_pause_ms=int(config.get(
+            "sequence_query_pause_ms", 2000
+        )),
         next_hop_id=config.get("next_hop_id", config.get("master_id")),
         hop_limit=int(config.get("hop_limit", 1)),
         plausibility_limits=config["plausibility_limits"],
+        diagnostic_storage=diagnostic_storage,
     )
 
 
@@ -213,6 +232,11 @@ def run_slave(controller, config, diagnostics, relay=None):
         controller.report_device_restarted()
     except Exception as exc:
         report_failure(diagnostics, "device restart event failed", exc)
+    if config.get("calibrate_sequence_timeout_on_start", True):
+        try:
+            controller.calibrate_sequence_query_timeout()
+        except Exception as exc:
+            report_failure(diagnostics, "sequence timeout startup probe failed", exc)
     while True:
         cycle_started = time.monotonic()
         try:
@@ -228,6 +252,8 @@ def run_slave(controller, config, diagnostics, relay=None):
                 next_measurement_at = cycle_started + interval_s
         except Exception as exc:
             report_failure(diagnostics, "measurement cycle failed", exc)
+            gc.collect()
+            next_measurement_at = time.monotonic() + 5
         remaining = next_measurement_at - time.monotonic()
         if (controller.storage is None
                 and controller.volatile_held_measurement is not None
@@ -262,10 +288,10 @@ def run_master(controller, config, diagnostics):
 
 
 def start_configured_role(
-        config, diagnostics, oled, storage, clock, radio):
+        config, diagnostics, oled, storage, clock, radio, diagnostic_storage):
     if config["role"] == "slave":
         controller = build_slave(
-            config, diagnostics, oled, storage, clock, radio
+            config, diagnostics, None, storage, clock, radio, diagnostic_storage
         )
         relay = None
         if config["network_mode"] == "mesh":
@@ -288,6 +314,10 @@ def start_configured_role(
                 radio, controller.codec, diagnostics, config["ack_timeout_ms"],
                 relay_storage,
             )
+            controller.set_relay_service(relay)
+        gc.collect()
+        if config.get("oled_enabled", True):
+            attach_oled(diagnostics, controller.sensor._i2c)
         if relay is not None:
             diagnostics.info("retrying relay queue")
             relay.retry_pending()
@@ -295,8 +325,11 @@ def start_configured_role(
         run_slave(controller, config, diagnostics, relay)
     else:
         controller = build_master(
-            config, diagnostics, storage, clock, radio, oled
+            config, diagnostics, storage, clock, radio
         )
+        gc.collect()
+        if config.get("oled_enabled", True):
+            attach_oled(diagnostics, controller.sensor._i2c)
         run_master(controller, config, diagnostics)
 
 
@@ -305,6 +338,7 @@ def main():
     print("Hochschule Hof / AUDI Umweltstiftung")
     print("Starte System ...")
 
+    release_previous_display_resources()
     diagnostics, oled = build_diagnostics()
     try:
         set_startup_stage("configuration")
@@ -315,9 +349,23 @@ def main():
         _sd_card, storage, clock, radio = build_shared_components(
             config, diagnostics
         )
-        oled = attach_oled(diagnostics)
+        diagnostic_storage = None
+        if config["role"] == "slave":
+            set_startup_stage("flash diagnostic queue")
+            from adapters.flash_diagnostic_queue import FlashDiagnosticQueueAdapter
+            try:
+                diagnostic_storage = FlashDiagnosticQueueAdapter()
+                diagnostics.info("flash diagnostic queue ready")
+            except ClimateCubeError as exc:
+                # CIRCUITPY is normally writable by the USB host and read-only
+                # to running code. Do not let this optional fallback stop a slave.
+                diagnostics.info(
+                    "flash diagnostic queue unavailable; using SD/RAM: {}".format(
+                        exc
+                    )
+                )
         start_configured_role(
-            config, diagnostics, oled, storage, clock, radio
+            config, diagnostics, oled, storage, clock, radio, diagnostic_storage
         )
     except Exception as exc:
         failure_stage = STARTUP_STAGE

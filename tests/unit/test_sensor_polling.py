@@ -98,6 +98,17 @@ class SensorPollingTests(unittest.TestCase):
         self.assertEqual(self.reads, 2)
         self.assertEqual(self.stops, 1)
 
+    def test_background_service_is_throttled_during_warmup(self):
+        calls = []
+        self.sensor.set_background_service(lambda: calls.append(self.now))
+        self.sensor.read_measurement()
+        self.assertGreater(len(calls), 1)
+        self.assertLess(len(calls), 300)
+        self.assertTrue(all(
+            later - earlier >= 0.24
+            for earlier, later in zip(calls, calls[1:])
+        ))
+
     def test_failed_configured_soil_sensor_sets_specific_flags(self):
         self.sensor._soil_sensor = types.SimpleNamespace(
             read_temperature=lambda: (_ for _ in ()).throw(OSError('missing'))

@@ -6,6 +6,7 @@
   "next_hop_id": "C01",
   "hop_limit": 3,
   "return_next_hops": {
+    "C04": "C03",
     "C03": "C03"
   },
   "time_epoch_utc": null,
@@ -15,6 +16,7 @@
   },
   "plausibility_limits": {},
   "ack_timeout_ms": 3000,
+  "calibrate_sequence_timeout_on_start": true,
   "sequence_query_retry_s": 60,
   "receive_timeout_ms": 30000,
   "radio": {

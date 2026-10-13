@@ -315,9 +315,9 @@ Eine grafische Oberflaeche ist dafuer derzeit nicht vorgesehen. Das im Prototyp 
 | Akteur | Slave Climate Cube |
 | Vorbedingung | Sensorik und LoRa sind betriebsbereit; Slave-SD fehlt oder ist nicht beschreibbar |
 | Ausloeser | SD-Mount oder lokaler Schreibvorgang schlaegt fehl |
-| Hauptablauf | Slave setzt `SLAVE_SD_UNAVAILABLE` beziehungsweise `SLAVE_SD_WRITE_ERROR`, sendet ein begrenztes Diagnoseereignis und uebertraegt den Messdatensatz trotz fehlendem lokalen Backup an den konfigurierten Master |
+| Hauptablauf | Slave setzt `F1` fuer eine nicht verfuegbare Slave-SD beziehungsweise `F2` fuer einen Slave-SD-Schreibfehler, protokolliert das Ereignis lokal und uebertraegt es gebuendelt mit dem naechsten Messdatensatz an den konfigurierten Master. Der Messdatensatz wird trotz fehlendem lokalen Backup uebertragen. |
 | Ergebnis | Der Master kann den Messdatensatz und den fehlenden lokalen Speicherzustand zentral dokumentieren; der Slave bleibt im Messbetrieb |
-| Fehlerfaelle | Ohne Slave-SD koennen Datensatz und Diagnose nicht lokal gepuffert werden. Bei Neustart ohne lesbaren Sequenzstand wird die naechste freie Sequenznummer nach UC-15 beim Master abgefragt. |
+| Fehlerfaelle | Ohne Slave-SD kann der Messdatensatz nicht lokal gepuffert werden. Ist `CIRCUITPY` fuer CircuitPython beschreibbar, bleiben Diagnoseereignisse in der begrenzten internen Warteschlange erhalten; im normalen USB-Dateiuebertragungsbetrieb verwendet die Software stattdessen den Arbeitsspeicher. Bei Neustart ohne lesbaren Sequenzstand wird die naechste freie Sequenznummer nach UC-15 beim Master abgefragt. |
 | Lastenbezug | LH-F-012, LH-F-020, LH-NF-004 |
 
 ### UC-14 Diagnoseereignis Zentral Verwalten
@@ -327,7 +327,7 @@ Eine grafische Oberflaeche ist dafuer derzeit nicht vorgesehen. Das im Prototyp 
 | Akteur | Slave und Master Climate Cube |
 | Vorbedingung | Direkte Funkverbindung zum konfigurierten Master ist moeglich; Master-SD ist beschreibbar |
 | Ausloeser | Zustandsbehafteter Fehler beginnt oder endet beziehungsweise ein einmaliges Ereignis tritt auf |
-| Hauptablauf | Slave sendet ein `E`-Paket mit `STARTED`, `ENDED` oder `OCCURRED`; Master ordnet es ueber `origin_id + event_code` zu, aktualisiert den aktiven Zustand und speichert es unter `/diagnostics/<origin_id>/events.csv` |
+| Hauptablauf | Slave protokolliert ein Ereignis mit `STARTED`, `ENDED` oder `OCCURRED` lokal, sendet das zugehoerige `E`-Paket erst unmittelbar vor dem naechsten regulaeren Messpaket; Master ordnet es ueber `origin_id + event_code` zu, aktualisiert den aktiven Zustand und speichert es unter `/diagnostics/<origin_id>/events.csv` |
 | Ergebnis | Der Benutzer kann zentrale Diagnoseverlaeufe je Slave nachvollziehen, ohne die Slave-SD auszulesen |
 | Fehlerfaelle | Wiederholtes `STARTED` eroeffnet keinen neuen Fehlerfall; verlorene Ereignispakete besitzen kein eigenes ACK; SD- und Sensorzustaende bleiben zusaetzlich ueber Messdaten-Statusflags sichtbar |
 | Lastenbezug | LH-F-012, LH-F-032, LZ-K-03, LH-NF-004 |
@@ -376,7 +376,7 @@ CSV wird als lesbares Zielformat vorgeschlagen. Dezimalpunkt, Zeichencodierung, 
 
 Dateien werden nach dem Schema `measurements_<erste_sequence>-<letzte_sequence>.csv` benannt, beispielsweise `measurements_000000-002999.csv`. Der Dateiblock wird ausschliesslich aus `sequence_number / 3000` bestimmt. Dadurch bleibt die Aufteilung auch ohne gueltige Uhrzeit und ueber Neustarts hinweg reproduzierbar. Bei einem 15-Minuten-Rhythmus entsprechen 3.000 Datensaetze ungefaehr einem Monat.
 
-Slaves speichern keine eigene Diagnosedatei. Sie senden Diagnoseereignisse beim ersten Auftreten und bei der Behebung per LoRa an den Master. Wiederholte identische Ereignisse werden nicht in jeder Programmschleife gesendet, sondern fluechtig gezaehlt und beim Zustandswechsel zusammengefasst. Der Master speichert empfangene Ereignisse getrennt von Messdaten; seine Messdatenspeicherung besitzt Vorrang.
+Slaves verwenden bei beschreibbarem `CIRCUITPY` die begrenzte interne Warteschlange `/diagnostics/pending.json` und dokumentieren bei vorhandener Slave-SD zusaetzlich in `/slave_diagnostics.csv`. Im normalen USB-Dateiuebertragungsbetrieb ist `CIRCUITPY` schreibgeschuetzt fuer CircuitPython; die Software verwendet dann die Slave-SD oder bei deren Ausfall den Arbeitsspeicher. Sie sendet Ereignisse nicht beim Auftreten, sondern gesammelt unmittelbar vor dem naechsten regulaeren Messpaket. Wiederholte identische Ereignisse werden nicht in jeder Programmschleife gesendet, sondern beim Zustandswechsel zusammengefasst. Der Master speichert empfangene Ereignisse getrennt von Messdaten; seine Messdatenspeicherung besitzt Vorrang.
 
 ### 7.4 Ueberwachte Slaves Und Empfangsintervalle
 
@@ -496,7 +496,7 @@ Der Architektur-Prototyp verwendet eine gemeinsame Fehlerbasis `ClimateCubeError
 | PH-T-018 | Der regulaere Betrieb ist unabhaengig vom OLED; ein fehlendes oder defektes Display verhindert Messung, Speicherung und Funkkommunikation nicht. | LZ-K-03, LH-NF-004 |
 | PH-T-019 | Sequenzstand und Status ausstehender Uebertragungen werden persistent gespeichert oder beim Start eindeutig aus der SD-Ablage rekonstruiert. | LH-F-011, LH-F-025, LH-NF-004 |
 | PH-T-020 | Der Slave sendet ausstehende Datensaetze FIFO. Nach einem passenden ACK folgt der naechste Datensatz; beim ersten fehlenden ACK wird der Durchlauf beendet und im naechsten 15-Minuten-Zyklus beim aeltesten unbestaetigten Datensatz fortgesetzt. | LH-F-020, LH-F-025 |
-| PH-T-021 | Slaves speichern keine eigene Diagnosedatei, sondern senden begrenzte Diagnoseereignisse per LoRa an den Master. Der Master speichert sie unter `/diagnostics/<device_id>/events.csv` mit Geraete-ID, Bezugssequenznummer, Ereigniscode, Zustand und Wiederholungsanzahl. Wiederholte identische Ereignisse werden zusammengefasst; Messdatenspeicherung hat Vorrang. | LH-F-012, LH-F-032, LH-NF-002, LH-NF-004 |
+| PH-T-021 | Slaves speichern begrenzte Diagnoseereignisse lokal unter `/slave_diagnostics.csv` und in einer persistenten Warteschlange. Sie senden diese gebuendelt unmittelbar vor dem naechsten regulaeren Messpaket per LoRa an den Master. Der Master speichert sie unter `/diagnostics/<device_id>/events.csv` mit Geraete-ID, Bezugssequenznummer, Ereigniscode, Zustand und Wiederholungsanzahl. Wiederholte identische Ereignisse werden zusammengefasst; Messdatenspeicherung hat Vorrang. | LH-F-012, LH-F-032, LH-NF-002, LH-NF-004 |
 | PH-T-022 | Eine fehlende oder nicht beschreibbare Slave-SD blockiert die LoRa-Uebertragung nicht. Der Speicherfehler wird im Datensatzstatus gekennzeichnet; der Slave versucht den Datensatz direkt an den Master zu senden und setzt den Betrieb fort. | LH-F-012, LH-F-020, LH-NF-004 |
 | PH-T-023 | Jedes Geraet laedt beim Start eine lokale `/config.json` vom CIRCUITPY-Laufwerk und validiert mindestens Rolle, Geraete-ID, Messintervall und Funkparameter. Fehlende oder ungueltige Pflichtangaben verhindern den regulaeren Betrieb und werden diagnostiziert; sie werden nicht unbemerkt durch Standardwerte ersetzt. Unbekannte Zusatzfelder duerfen ignoriert werden. Die Software kann die systemweite Eindeutigkeit einer ID nicht lokal pruefen. | LH-F-040, LH-F-041, LH-NF-008 |
 | PH-T-024 | `config.example.json` fuer Slaves und `config.master.example.json` fuer Master dienen als versionierte Vorlagen; die geraetespezifische `config.json` wird nicht in Git gepflegt. Der Benutzer nimmt Aenderungen anhand der Betriebsanleitung vor und aktiviert sie durch einen Neustart. Eine automatische oder zentrale Konfigurationsverteilung gehoert nicht zum Kernsystem. | LH-F-040, LH-NF-008 |

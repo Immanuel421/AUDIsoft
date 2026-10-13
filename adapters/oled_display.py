@@ -25,6 +25,17 @@ class OledDisplayAdapter:
         self.display = adafruit_displayio_sh1106.SH1106(
             display_bus, width=128, height=64
         )
+        self._group = displayio.Group()
+        self._title_label = label.Label(
+            terminalio.FONT, text="", x=0, y=8
+        )
+        self._group.append(self._title_label)
+        self._line_labels = []
+        for y in (24, 36, 48, 60):
+            line_label = label.Label(terminalio.FONT, text="", x=0, y=y)
+            self._line_labels.append(line_label)
+            self._group.append(line_label)
+        self.display.root_group = self._group
         try:
             self.display.brightness = 0.15
         except Exception:
@@ -36,22 +47,16 @@ class OledDisplayAdapter:
         self.show_message("Climate Cube", ["Starte System ..."], 1)
 
     def show_message(self, title, lines, seconds=None):
-        group = displayio.Group()
         title = self._trim(title)
-        group.append(label.Label(
-            terminalio.FONT, text=title, x=self._center_x(title), y=8
-        ))
+        self._title_label.text = title
+        self._title_label.x = self._center_x(title)
         wrapped = []
         for line in lines:
             wrapped.extend(self._wrap(str(line)))
-        for index in range(4):
+        for index, line_label in enumerate(self._line_labels):
             text = wrapped[index] if index < len(wrapped) else ""
-            group.append(label.Label(
-                terminalio.FONT,
-                text=text,
-                x=self._center_x(text),
-                y=(24, 36, 48, 60)[index],
-            ))
+            line_label.text = text
+            line_label.x = self._center_x(text)
         try:
             self.display.sleep(False)
         except Exception:
@@ -59,7 +64,6 @@ class OledDisplayAdapter:
                 self.display.wake()
             except Exception:
                 pass
-        self.display.root_group = group
         if seconds is not None:
             time.sleep(seconds)
 

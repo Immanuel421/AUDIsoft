@@ -403,10 +403,13 @@ Verlorene ACKs verursachen keine Kollision: Ist der zuvor gesendete Datensatz be
 
 ## 11.2 Diagnoseereignis V1
 
-Slaves speichern keine eigene Diagnosedatei. Ein Zustandswechsel wird als routingfaehiges Ereignispaket `E` an den Master gesendet:
+Slaves protokollieren jeden Zustandswechsel zunaechst lokal in
+`/slave_diagnostics.csv` und einer persistenten Warteschlange. Die wartenden
+Ereignisse werden erst beim naechsten regulaeren 15-Minuten-Messvorgang als
+routingfaehige `E`-Pakete unmittelbar vor dem Messpaket an den Master gesendet:
 
 ```text
-1;E;C01;M01;M01;125;0;1;SLAVE_SD_UNAVAILABLE;STARTED;1
+1;E;C01;M01;M01;125;0;1;F1;STARTED;1
 ```
 
 Das Ereignispaket besitzt genau elf Felder:
@@ -422,8 +425,8 @@ V1 definiert folgende zustandsbehaftete Ereigniscodes:
 
 | Ereigniscode | Bedeutung | Zusaetzliches Statusflag |
 |---|---|---|
-| `SLAVE_SD_UNAVAILABLE` | Slave-SD nicht eingebunden oder nicht ansprechbar | `SLAVE_SD_UNAVAILABLE` |
-| `SLAVE_SD_WRITE_ERROR` | Schreiben auf vorhandene Slave-SD fehlgeschlagen | `SLAVE_SD_WRITE_ERROR` |
+| `F1` | Slave-SD nicht eingebunden oder nicht ansprechbar | `SLAVE_SD_UNAVAILABLE` |
+| `F2` | Schreiben auf vorhandene Slave-SD fehlgeschlagen | `SLAVE_SD_WRITE_ERROR` |
 | `SEN66_ERROR` | SEN66 fehlt oder liefert keine vollstaendige Messung | `SEN66_ERROR` |
 | `SOIL_TEMPERATURE_ERROR` | konfigurierter DS18B20 ausgefallen | `SOIL_TEMPERATURE_ERROR` |
 | `SOIL_MOISTURE_ERROR` | konfigurierte Bodenfeuchtemessung ausgefallen | `SOIL_MOISTURE_ERROR` |
@@ -434,11 +437,11 @@ Einmalige Ereignisse verwenden `OCCURRED`:
 
 | Ereigniscode | Bedeutung |
 |---|---|
-| `DEVICE_RESTARTED` | Slave wurde neu gestartet |
+| `I1` | Slave wurde neu gestartet |
 | `CONFIG_REJECTED` | Konfiguration wurde abgelehnt |
 | `PAYLOAD_REJECTED` | Datensatz konnte nicht serialisiert werden |
 
-Ein Slave sendet `STARTED` beim ersten Auftreten und `ENDED` bei der Behebung eines zustandsbehafteten Fehlers. Identische Wiederholungen erzeugen kein Paket je Programmschleife, sondern erhoehen `repeat_count`. Ohne Slave-SD wird der Zaehler nur im Arbeitsspeicher gehalten und darf bei einem Neustart verloren gehen. Fuer Diagnoseereignisse ist in V1 kein eigenes ACK erforderlich; SD- und Sensorzustaende werden zusaetzlich durch Statusflags in jedem Messpaket sichtbar. `ACK_MISSING`, `TIME_UNSYNCED`, einzelne unplausible Messwerte und nicht konfigurierte optionale Sensoren erzeugen kein separates Diagnoseereignis. Ein fehlendes ACK darf waehrend Inbetriebnahme und Test seriell mit der betroffenen Sequenznummer ausgegeben werden, wird aber nicht zusaetzlich auf SD protokolliert. Der Datensatz bleibt ausstehend; eine laenger anhaltende Verbindungsstoerung ist ueber die wachsende Anzahl ausstehender Datensaetze erkennbar.
+Ein Slave sendet `STARTED` beim ersten Auftreten und `ENDED` bei der Behebung eines zustandsbehafteten Fehlers. Identische Wiederholungen erzeugen kein Paket je Programmschleife, sondern erhoehen `repeat_count`. Ereignisse werden erst nach dem erfolgreichen ACK des zugehoerigen Messdatensatzes aus der lokalen Warteschlange entfernt. Ist `CIRCUITPY` fuer CircuitPython beschreibbar eingebunden, liegt die Warteschlange im internen Speicher unter `/diagnostics/pending.json`; im normalen USB-Dateiuebertragungsbetrieb faellt die Software ohne Abbruch auf die Slave-SD und bei fehlender Slave-SD auf den Arbeitsspeicher zurueck. Die interne Warteschlange ist auf 32 Eintraege begrenzt; Messdaten werden dort nie gespeichert. Fuer Diagnoseereignisse ist in V1 kein eigenes ACK erforderlich; SD- und Sensorzustaende werden zusaetzlich durch Statusflags in jedem Messpaket sichtbar. `ACK_MISSING`, `TIME_UNSYNCED`, einzelne unplausible Messwerte und nicht konfigurierte optionale Sensoren erzeugen kein separates Diagnoseereignis. Ein fehlendes ACK darf waehrend Inbetriebnahme und Test seriell mit der betroffenen Sequenznummer ausgegeben werden, wird aber nicht zusaetzlich auf SD protokolliert. Der Datensatz bleibt ausstehend; eine laenger anhaltende Verbindungsstoerung ist ueber die wachsende Anzahl ausstehender Datensaetze erkennbar. Die Codebedeutungen und Pruefschritte stehen in `Diagnosecodes.md`.
 
 `RADIO_ERROR` und `CONFIG_REJECTED` koennen nur nachtraeglich gesendet werden, wenn Funkverbindung und Zielkonfiguration wieder funktionsfaehig sind. Ihre zentrale Erfassung ist deshalb nicht garantiert; eine lokale serielle Diagnose bleibt fuer die Inbetriebnahme bestehen.
 

@@ -3,7 +3,8 @@
 import time
 
 from domain.protocol import (
-    ACK_TYPE, DATA_TYPE, SEQUENCE_QUERY_TYPE, SEQUENCE_RESPONSE_TYPE,
+    ACK_TYPE, DATA_TYPE, DIAGNOSTIC_EVENT_TYPE, SEQUENCE_QUERY_TYPE,
+    SEQUENCE_RESPONSE_TYPE,
     ProtocolError,
 )
 
@@ -23,8 +24,10 @@ class RelayController:
         self.forward_timeout_ms = int(forward_timeout_ms)
         self.storage = storage
 
-    def _wait_for_response(self, message_type, destination_id, sequence=None):
-        deadline = time.monotonic() + self.forward_timeout_ms / 1000
+    def _wait_for_response(self, message_type, destination_id, sequence=None,
+                           timeout_ms=None):
+        timeout_ms = self.forward_timeout_ms if timeout_ms is None else timeout_ms
+        deadline = time.monotonic() + timeout_ms / 1000
         while True:
             remaining = deadline - time.monotonic()
             if remaining <= 0:
@@ -34,6 +37,7 @@ class RelayController:
                 return None
             try:
                 if self.codec.message_type(payload) != message_type:
+                    self.process_payload(payload)
                     continue
                 if message_type == ACK_TYPE:
                     response = self.codec.decode_ack(payload)
@@ -45,6 +49,7 @@ class RelayController:
             if (response.origin_id != self.master_id
                     or response.destination_id != destination_id
                     or response.next_hop_id != self.device_id):
+                self.process_payload(payload)
                 continue
             if sequence is not None and response.sequence_number != sequence:
                 continue
@@ -69,16 +74,16 @@ class RelayController:
             transmitted += 1
         return transmitted
 
-    def process_next(self, timeout_ms):
-        payload, _metadata = self.radio.receive(timeout_ms)
-        if payload is None:
-            return False
+    def process_payload(self, payload):
+        """Processes an already received packet without waiting for radio I/O."""
         try:
             message_type = self.codec.message_type(payload)
             if message_type == DATA_TYPE:
                 return self._forward_data(payload)
             if message_type == ACK_TYPE:
                 return self._forward_ack(payload)
+            if message_type == DIAGNOSTIC_EVENT_TYPE:
+                return self._forward_diagnostic_event(payload)
             if message_type == SEQUENCE_QUERY_TYPE:
                 return self._forward_sequence_query(payload)
             if message_type == SEQUENCE_RESPONSE_TYPE:
@@ -87,6 +92,12 @@ class RelayController:
         except ProtocolError as exc:
             self.diagnostics.error("invalid relay packet: {}".format(exc))
             return False
+
+    def process_next(self, timeout_ms):
+        payload, _metadata = self.radio.receive(timeout_ms)
+        if payload is None:
+            return False
+        return self.process_payload(payload)
 
     def _forward_data(self, payload):
         record = self.codec.decode_data(payload)
@@ -123,6 +134,32 @@ class RelayController:
             self.storage.mark_delivered(record)
         return forwarded
 
+    def _forward_diagnostic_event(self, payload):
+        event = self.codec.decode_diagnostic_event(payload)
+        if event.next_hop_id != self.device_id:
+            return False
+        if event.destination_id != self.master_id:
+            raise ProtocolError(
+                "diagnostic event destination differs from master"
+            )
+        if event.hop_count >= event.hop_limit:
+            raise ProtocolError("diagnostic event hop limit reached")
+        event.next_hop_id = self.next_hop_id
+        event.hop_count += 1
+        if not self.radio.send(self.codec.encode_diagnostic_event(event)):
+            self.diagnostics.error(
+                "relay diagnostic event send failed for {}".format(
+                    event.origin_id
+                )
+            )
+            return False
+        self.diagnostics.info(
+            "relayed diagnostic event {} from {}".format(
+                event.event_code, event.origin_id
+            )
+        )
+        return True
+
     def _forward_sequence_query(self, payload):
         query = self.codec.decode_sequence_query(payload)
         if query.next_hop_id != self.device_id:
@@ -136,13 +173,14 @@ class RelayController:
         if not self.radio.send(self.codec.encode_sequence_query(query)):
             self.diagnostics.error("relay sequence query send failed")
             return False
-        response_payload = self._wait_for_response(
-            SEQUENCE_RESPONSE_TYPE, query.origin_id
+        self.diagnostics.info(
+            "relayed sequence query for {}".format(query.origin_id)
         )
-        if response_payload is None:
-            self.diagnostics.error("relay sequence response missing")
-            return False
-        return self._forward_sequence_response(response_payload)
+        return True
+
+    def service_pending(self):
+        """Services one packet without holding up a sensor warm-up cycle."""
+        return self.process_next(0)
 
     def _forward_sequence_response(self, payload):
         response = self.codec.decode_sequence_response(payload)

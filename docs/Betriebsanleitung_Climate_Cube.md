@@ -242,6 +242,10 @@ Messwerten unter anderem:
 | `status_flags` | vierstellige Hexadezimalzahl fuer Mess-, Zeit- und Speicherzustand |
 
 Die vollstaendige Ereignishistorie bleibt in `diagnostics/<device_id>/events.csv`.
+Auf dem jeweiligen Slave liegt zusaetzlich `slave_diagnostics.csv`. Dort werden
+Ereignisse als kompakte Codes protokolliert und bis zum naechsten regulaeren
+Messvorgang zur Uebertragung vorgemerkt. Die Bedeutung und Pruefschritte stehen
+in [Diagnosecodes.md](Diagnosecodes.md).
 In Excel kann die Master-CSV direkt fuer Diagramme verwendet werden: Zeit und
 Messwertspalte auswaehlen; Diagnosefelder bleiben feste Zusatzspalten und
 erzeugen keine eigenen Zwischenzeilen.
@@ -291,7 +295,8 @@ Sequenz 0 steht in [Reset_Stabilitaetstest.md](Reset_Stabilitaetstest.md).
 |---|---|
 | OLED bleibt leer | USB-Stromversorgung, `code.py`, OLED-Kabel und Konsolenausgabe pruefen; Kernbetrieb kann trotzdem laufen |
 | `ACK missing for sequence ...` | Master eingeschaltet, Antennen, gleiche Funkparameter, Route und Abstand/Metallhindernisse pruefen |
-| `SLAVE_SD_UNAVAILABLE` | Geraet ausschalten, SD-Karte, Kartenleser und Dateisystem pruefen; nicht im Betrieb ziehen |
+| `F1` | Slave-SD nicht verfuegbar: Geraet ausschalten, SD-Karte, Kartenleser und Dateisystem pruefen; nicht im Betrieb ziehen |
+| `F2` | Schreiben auf Slave-SD fehlgeschlagen: freien Speicher und Dateisystem pruefen |
 | `Error 5` | Vollstaendige Meldung sichern, SD-Karte sichern und getrennt testen; keine Daten loeschen |
 | `LoRa receive setup failed: -1` | Stromversorgung, SX1262-Verbindung, Antenne und Neustart pruefen; Fehler im Testprotokoll notieren |
 | `TIME_UNSYNCED` | nach Neustart erwartbar, wenn Zeit aus CSV fortgesetzt wurde; bei frischem Reset aktuellen `time_epoch_utc` setzen |

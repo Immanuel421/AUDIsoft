@@ -12,6 +12,8 @@ from sx1262 import SX1262
 from ports.contracts import RadioPort
 from ports.errors import RadioError
 
+_TIMEOUT_METADATA = {"status": ERR_RX_TIMEOUT}
+
 
 class Sx1262RadioAdapter(RadioPort):
     def __init__(self, config):
@@ -87,7 +89,7 @@ class Sx1262RadioAdapter(RadioPort):
                         return bytes(payload), metadata
                 if time.monotonic() >= deadline:
                     # A software timeout must not interrupt an incoming packet.
-                    return None, {"status": ERR_RX_TIMEOUT}
+                    return None, _TIMEOUT_METADATA
                 time.sleep(0.001)
         except Exception as exc:
             raise RadioError("LoRa receive failed: {}".format(exc))

@@ -24,6 +24,9 @@ MASTER_HEADER = (
 DIAGNOSTIC_HEADER = (
     "device_id,reference_sequence,event_code,event_state,repeat_count\n"
 )
+SLAVE_DIAGNOSTIC_HEADER = (
+    "event_code,event_state,repeat_count,transmission_status\n"
+)
 
 
 class SdStorageAdapter(SlaveStoragePort, MasterStoragePort):
@@ -33,6 +36,7 @@ class SdStorageAdapter(SlaveStoragePort, MasterStoragePort):
         self._backup_state_path = self._state_path + ".bak"
         self._slave_path = mount_path + "/slave_measurements.csv"
         self._pending_path = mount_path + "/pending_records.jsonl"
+        self._slave_diagnostics_path = mount_path + "/slave_diagnostics.csv"
         self._master_path = mount_path + "/master_measurements.csv"
         self._pending_offsets = {}
         self._scan_existing_data = scan_existing_data
@@ -162,6 +166,60 @@ class SdStorageAdapter(SlaveStoragePort, MasterStoragePort):
                 "transmission state cannot be stored: {}".format(exc)
             )
 
+    def queue_diagnostic_event(self, event_code, event_state, repeat_count):
+        """Writes a human-readable local history and persists the send queue."""
+        try:
+            self._ensure_header(
+                self._slave_diagnostics_path, SLAVE_DIAGNOSTIC_HEADER
+            )
+            self._append(self._slave_diagnostics_path, "{},{},{},PENDING\n".format(
+                event_code, event_state, int(repeat_count)
+            ))
+            pending = self._state.setdefault("pending_diagnostics", [])
+            pending.append({
+                "event_code": event_code,
+                "event_state": event_state,
+                "repeat_count": int(repeat_count),
+            })
+            self._write_state()
+        except (OSError, ValueError, TypeError) as exc:
+            raise StorageError("local diagnostic cannot be stored: {}".format(exc))
+
+    def record_diagnostic_event(self, event_code, event_state, repeat_count):
+        """Adds an SD history row; the internal flash owns the send queue."""
+        try:
+            self._ensure_header(
+                self._slave_diagnostics_path, SLAVE_DIAGNOSTIC_HEADER
+            )
+            self._append(self._slave_diagnostics_path, "{},{},{},PENDING\n".format(
+                event_code, event_state, int(repeat_count)
+            ))
+        except (OSError, ValueError, TypeError) as exc:
+            raise StorageError("local diagnostic cannot be stored: {}".format(exc))
+
+    def pending_diagnostic_events(self, device_id, reference_sequence,
+                                  destination_id, next_hop_id, hop_limit):
+        from domain.protocol import DiagnosticEvent
+
+        try:
+            return [DiagnosticEvent(
+                device_id, destination_id, next_hop_id, reference_sequence,
+                entry["event_code"], entry["event_state"],
+                entry["repeat_count"], 0, hop_limit,
+            ) for entry in self._state.get("pending_diagnostics", [])]
+        except (KeyError, TypeError, ValueError) as exc:
+            raise StorageError("pending diagnostics cannot be read: {}".format(exc))
+
+    def mark_diagnostic_events_transmitted(self, events):
+        try:
+            count = len(events)
+            if count:
+                pending = self._state.setdefault("pending_diagnostics", [])
+                del pending[:count]
+                self._write_state()
+        except (OSError, ValueError, TypeError) as exc:
+            raise StorageError("diagnostic transmission state cannot be stored: {}".format(exc))
+
     def has_received(self, device_id, sequence_number):
         received = self._state.get("last_received", {})
         return int(sequence_number) <= int(received.get(device_id, -1))
@@ -280,9 +338,9 @@ class SdStorageAdapter(SlaveStoragePort, MasterStoragePort):
             "sd_write_error_count": 0,
             "diagnostics": [],
         })
-        if event.event_code == "DEVICE_RESTARTED":
+        if event.event_code in ("I1", "DEVICE_RESTARTED"):
             summary["restart_count"] += event.repeat_count
-        elif event.event_code == "SLAVE_SD_WRITE_ERROR":
+        elif event.event_code in ("F2", "SLAVE_SD_WRITE_ERROR"):
             summary["sd_write_error_count"] += event.repeat_count
         else:
             entry = "{}:{}".format(event.event_code, event.repeat_count)

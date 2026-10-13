@@ -124,6 +124,11 @@ def load_configuration(path="/config.json"):
         raise ConfigurationError(str(exc))
     config.setdefault("ack_timeout_ms", 3000)
     config.setdefault("receive_timeout_ms", 30000)
+    config.setdefault("calibrate_sequence_timeout_on_start", True)
+    if not isinstance(config["calibrate_sequence_timeout_on_start"], bool):
+        raise ConfigurationError(
+            "calibrate_sequence_timeout_on_start must be boolean"
+        )
     radio = config.setdefault("radio", {})
     for key, value in DEFAULT_RADIO.items():
         radio.setdefault(key, value)

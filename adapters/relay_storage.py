@@ -2,9 +2,14 @@
 
 import json
 import os
+import time
 
 from domain.measurement import MeasurementRecord
 from ports.errors import StorageError
+
+
+RELAY_LOAD_ATTEMPTS = 3
+RELAY_LOAD_RETRY_S = 0.2
 
 
 class RelayStorageAdapter:
@@ -35,18 +40,23 @@ class RelayStorageAdapter:
             self._write()
 
     def _load(self):
-        try:
-            with open(self.path, "r") as source:
-                value = json.load(source)
-            if not isinstance(value, dict):
-                raise ValueError("relay queue is invalid")
-            return value
-        except OSError as exc:
-            if exc.args[0] == 2:
-                return {}
-            raise StorageError("relay queue cannot be loaded: {}".format(exc))
-        except (ValueError, TypeError, KeyError) as exc:
-            raise StorageError("relay queue cannot be loaded: {}".format(exc))
+        last_error = None
+        for attempt in range(RELAY_LOAD_ATTEMPTS):
+            try:
+                with open(self.path, "r") as source:
+                    value = json.load(source)
+                if not isinstance(value, dict):
+                    raise ValueError("relay queue is invalid")
+                return value
+            except OSError as exc:
+                if exc.args and exc.args[0] == 2:
+                    return {}
+                last_error = exc
+                if attempt + 1 < RELAY_LOAD_ATTEMPTS:
+                    time.sleep(RELAY_LOAD_RETRY_S)
+            except (ValueError, TypeError, KeyError) as exc:
+                raise StorageError("relay queue cannot be loaded: {}".format(exc))
+        raise StorageError("relay queue cannot be loaded: {}".format(last_error))
 
     def _write(self):
         temporary = self.path + ".tmp"

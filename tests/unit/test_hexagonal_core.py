@@ -393,7 +393,24 @@ class HexagonalCoreTests(unittest.TestCase):
         self.assertEqual(controller.sequence_from_response(valid), 126)
         self.assertIsNone(controller.sequence_from_response(wrong_master))
         self.assertIsNone(controller.sequence_from_response(wrong_slave))
+        self.assertEqual(self.diagnostics.messages, [])
         self.assertIsNone(controller.sequence_from_response(b"invalid"))
+        self.assertEqual(self.diagnostics.messages[0][0], "error")
+
+    def test_slave_ignores_non_sequence_packets_while_waiting_for_response(self):
+        controller = SlaveController(
+            "C03", FakeSensor(), FakeClock(), FakeSlaveStorage(), FakeRadio(),
+            self.codec, self.diagnostics, 3000, master_id="M01"
+        )
+        data_packet = self.codec.encode_data(record(126))
+        diagnostic_packet = self.codec.encode_diagnostic_event(
+            DiagnosticEvent("C01", "M01", "M01", 126,
+                            "DEVICE_RESTARTED", "OCCURRED", 1)
+        )
+
+        self.assertIsNone(controller.sequence_from_response(data_packet))
+        self.assertIsNone(controller.sequence_from_response(diagnostic_packet))
+        self.assertEqual(self.diagnostics.messages, [])
 
     def test_slave_sequence_query_round_stops_after_success(self):
         response = self.codec.encode_sequence_response(
@@ -412,6 +429,29 @@ class HexagonalCoreTests(unittest.TestCase):
         self.assertEqual(query.origin_id, "C01")
         self.assertEqual(query.destination_id, "M01")
         self.assertEqual(query.next_hop_id, "M01")
+
+    def test_startup_probe_keeps_timeout_floor_and_caches_no_sd_sequence(self):
+        response = self.codec.encode_sequence_response(
+            SequenceResponse("M01", "C03", "C03", 126)
+        )
+        radio = FakeRadio([(response, {})])
+        controller = SlaveController(
+            "C03", FakeSensor(), FakeClock(), None, radio,
+            self.codec, self.diagnostics, 3000, master_id="M01",
+            next_hop_id="C03", hop_limit=3
+        )
+
+        self.assertEqual(controller.calibrate_sequence_query_timeout(), 126)
+        self.assertEqual(controller.volatile_next_sequence, 126)
+        self.assertGreaterEqual(controller.sequence_query_timeout_ms, 3000)
+        self.assertEqual(len(radio.sent), 1)
+        self.assertEqual(
+            self.codec.decode_sequence_query(radio.sent[0]).origin_id, "C03"
+        )
+        self.assertTrue(any(
+            level == "info" and "startup probe" in message
+            for level, message in self.diagnostics.messages
+        ))
 
     def test_seq_04_sequence_query_round_without_master_response(self):
         clock = FakeClock()
@@ -441,7 +481,7 @@ class HexagonalCoreTests(unittest.TestCase):
         )
         self.assertEqual(
             [self.codec.message_type(payload) for payload in radio.sent],
-            ["E", "Q", "Q", "Q"],
+            ["Q", "Q", "Q"],
         )
 
     def test_no_sd_retry_reuses_held_measurement_until_next_cycle(self):
@@ -470,7 +510,7 @@ class HexagonalCoreTests(unittest.TestCase):
         self.assertIsNone(controller.volatile_held_measurement)
         self.assertEqual(
             [self.codec.message_type(payload) for payload in radio.sent],
-            ["E", "Q", "Q", "Q", "Q", "D"],
+            ["Q", "Q", "Q", "Q", "E", "D"],
         )
 
     def test_no_sd_cycle_sends_measurement_with_status_after_sequence_response(self):
@@ -490,10 +530,10 @@ class HexagonalCoreTests(unittest.TestCase):
         )
         self.assertEqual(
             [self.codec.message_type(payload) for payload in radio.sent],
-            ["E", "Q", "D"],
+            ["Q", "E", "D"],
         )
-        event = self.codec.decode_diagnostic_event(radio.sent[0])
-        self.assertEqual(event.event_code, "SLAVE_SD_UNAVAILABLE")
+        event = self.codec.decode_diagnostic_event(radio.sent[1])
+        self.assertEqual(event.event_code, "F1")
         sent_record = self.codec.decode_data(radio.sent[2])
         self.assertEqual(sent_record.sequence_number, 126)
         self.assertTrue(sent_record.status_flags & SLAVE_SD_UNAVAILABLE)
@@ -507,10 +547,7 @@ class HexagonalCoreTests(unittest.TestCase):
             self.codec, self.diagnostics, 3000, master_id="M01"
         )
         self.assertTrue(controller.report_device_restarted())
-        event = self.codec.decode_diagnostic_event(radio.sent[0])
-        self.assertEqual(event.event_code, "DEVICE_RESTARTED")
-        self.assertEqual(event.event_state, "OCCURRED")
-        self.assertEqual(event.reference_sequence, 2)
+        self.assertEqual(radio.sent, [])
 
     def test_sd_write_failure_sends_degraded_record_with_flags(self):
         response = self.codec.encode_sequence_response(
@@ -524,7 +561,7 @@ class HexagonalCoreTests(unittest.TestCase):
         )
         self.assertEqual(controller.run_measurement_cycle(), 1)
         message_types = [self.codec.message_type(payload) for payload in radio.sent]
-        self.assertEqual(message_types, ["E", "E", "Q", "D"])
+        self.assertEqual(message_types, ["Q", "E", "E", "D"])
         sent_record = self.codec.decode_data(radio.sent[-1])
         self.assertTrue(sent_record.status_flags & SLAVE_SD_UNAVAILABLE)
         self.assertTrue(sent_record.status_flags & SLAVE_SD_WRITE_ERROR)
@@ -552,7 +589,7 @@ class HexagonalCoreTests(unittest.TestCase):
         )
         self.assertEqual(
             [self.codec.message_type(payload) for payload in radio.sent],
-            ["E", "Q", "D", "D"],
+            ["Q", "E", "D", "D"],
         )
         self.assertEqual(self.codec.decode_data(radio.sent[2]).sequence_number, 126)
         self.assertEqual(self.codec.decode_data(radio.sent[3]).sequence_number, 127)
@@ -663,12 +700,18 @@ class HexagonalCoreTests(unittest.TestCase):
             self.codec, self.diagnostics, 3000,
         )
         self.assertTrue(relay.process_next(30000))
+        self.assertTrue(relay.process_next(30000))
         forwarded_query = self.codec.decode_sequence_query(radio.sent[0])
         forwarded_response = self.codec.decode_sequence_response(radio.sent[1])
         self.assertEqual(forwarded_query.next_hop_id, "M01")
         self.assertEqual(forwarded_query.hop_count, 1)
         self.assertEqual(forwarded_response.next_hop_id, "C03")
         self.assertEqual(forwarded_response.next_sequence, 14)
+        self.assertEqual(
+            self.diagnostics.messages,
+            [("info", "relayed sequence query for C03"),
+             ("info", "relayed sequence response for C03 to C03")]
+        )
 
     def test_relay_forwards_data_and_master_ack_along_static_route(self):
         item = record(7)
@@ -690,6 +733,24 @@ class HexagonalCoreTests(unittest.TestCase):
         self.assertEqual(forwarded.hop_count, 1)
         self.assertEqual(returned_ack.next_hop_id, "C03")
         self.assertEqual(returned_ack.hop_count, 1)
+
+    def test_relay_forwards_diagnostic_event_to_master(self):
+        event = DiagnosticEvent(
+            "C03", "M01", "C02", 7, "SLAVE_SD_UNAVAILABLE", "STARTED",
+            1, 0, 3,
+        )
+        radio = FakeRadio([(self.codec.encode_diagnostic_event(event), {})])
+        relay = RelayController(
+            "C02", "M01", "M01", {}, radio,
+            self.codec, self.diagnostics, 3000,
+        )
+
+        self.assertTrue(relay.process_next(30000))
+
+        forwarded = self.codec.decode_diagnostic_event(radio.sent[0])
+        self.assertEqual(forwarded.next_hop_id, "M01")
+        self.assertEqual(forwarded.hop_count, 1)
+        self.assertEqual(forwarded.event_code, "SLAVE_SD_UNAVAILABLE")
 
     def test_slave_ignores_foreign_ack_until_own_ack_arrives(self):
         pending = [record(0)]

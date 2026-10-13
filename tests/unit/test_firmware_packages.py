@@ -20,6 +20,10 @@ def source_paths():
     paths = [ROOT / "code.py"]
     for package in SOURCE_PACKAGES:
         paths.extend(sorted((ROOT / package).glob("*.py")))
+    paths.extend(
+        path for path in sorted((ROOT / "lib").rglob("*"))
+        if path.is_file() and "__pycache__" not in path.parts
+    )
     return paths
 
 
@@ -42,7 +46,8 @@ class FirmwarePackageTests(unittest.TestCase):
                 self.assertEqual(expected_sources, manifest["sources"])
 
                 for relative_path in expected_sources:
-                    if relative_path == "code.py":
+                    source = ROOT / relative_path
+                    if relative_path == "code.py" or source.suffix != ".py":
                         target = package / relative_path
                     else:
                         target = package / Path(relative_path).with_suffix(".mpy")

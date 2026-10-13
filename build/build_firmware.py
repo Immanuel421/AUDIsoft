@@ -11,6 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE_PACKAGES = ("adapters", "application", "domain", "ports")
+SOURCE_LIBRARY = ROOT / "lib"
 PROFILES = {
     "rp2040": {
         "circuitpython": "10.3.0",
@@ -43,10 +44,10 @@ def write_installation(profile, destination, compiler_version):
         )
         + "## Installation\n\n"
         + "1. Vollstaendige Sicherung von `CIRCUITPY`, `config.json` und SD-Karte erstellen.\n"
-        + "2. Auf `CIRCUITPY` die Ordner `adapters`, `application`, `domain` und `ports` vollstaendig durch die gleichnamigen Ordner dieses Pakets ersetzen.\n"
+        + "2. Auf `CIRCUITPY` die Ordner `adapters`, `application`, `domain`, `ports` und `lib` vollstaendig durch die gleichnamigen Ordner dieses Pakets ersetzen.\n"
         + "3. `code.py` aus diesem Paket nach `CIRCUITPY/code.py` kopieren.\n"
-        + "4. `config.json`, den Ordner `lib/` und die SD-Daten unveraendert lassen.\n"
-        + "5. Es duerfen keine gleichnamigen `.py`- und `.mpy`-Dateien in den vier Projektordnern verbleiben.\n"
+        + "4. `config.json` und die SD-Daten unveraendert lassen.\n"
+        + "5. Es duerfen keine gleichnamigen `.py`- und `.mpy`-Dateien in den Projektordnern verbleiben.\n"
         + "6. Laufwerk sicher auswerfen und den Pico neu starten.\n\n"
         + "Erzeugt mit: `{}`\n".format(compiler_version.strip())
     )
@@ -56,6 +57,8 @@ def build(profile, mpy_cross):
     destination = ROOT / "firmware" / profile
     for package in SOURCE_PACKAGES:
         shutil.rmtree(destination / package, ignore_errors=True)
+    shutil.rmtree(destination / "lib", ignore_errors=True)
+    shutil.rmtree(destination / "__pycache__", ignore_errors=True)
 
     manifest = {}
     for package in SOURCE_PACKAGES:
@@ -64,6 +67,22 @@ def build(profile, mpy_cross):
             target = destination / relative.with_suffix(".mpy")
             run_mpy_cross(mpy_cross, source, target)
             manifest[str(relative)] = sha256(source)
+
+    # CircuitPython libraries with available source are compiled with the same
+    # mpy-cross as the target. Precompiled bundle modules and license files are
+    # copied unchanged because their source is not part of this repository.
+    for source in sorted(SOURCE_LIBRARY.rglob("*")):
+        if source.is_dir() or "__pycache__" in source.parts:
+            continue
+        relative = source.relative_to(ROOT)
+        if source.suffix == ".py":
+            target = destination / relative.with_suffix(".mpy")
+            run_mpy_cross(mpy_cross, source, target)
+        else:
+            target = destination / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
+        manifest[str(relative)] = sha256(source)
 
     shutil.copy2(ROOT / "code.py", destination / "code.py")
     manifest["code.py"] = sha256(ROOT / "code.py")

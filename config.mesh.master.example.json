@@ -5,9 +5,11 @@
   "monitored_slaves": [
     "C01",
     "C02",
-    "C03"
+    "C03",
+    "C04"
   ],
   "return_next_hops": {
+    "C04": "C01",
     "C03": "C01",
     "C02": "C01"
   },

@@ -12,8 +12,10 @@ Die Pakete sind nicht austauschbar. Eine `.mpy`-Datei darf nur auf einem
 Geraet mit der zugehoerigen CircuitPython-Version eingesetzt werden.
 
 `code.py` bleibt als Python-Datei erhalten, weil CircuitPython diese Datei beim
-Start direkt ausfuehrt. Die vier Projektpakete werden als `.mpy` ausgeliefert,
-um beim Import RAM zu sparen.
+Start direkt ausfuehrt. Die vier Projektpakete sowie alle im Quellordner `lib/`
+vorliegenden Python-Bibliotheken werden als `.mpy` ausgeliefert, um beim Import
+RAM zu sparen. Jedes Paket enthaelt deshalb einen vollstaendigen `lib/`-Ordner,
+der zusammen mit den Projektordnern auf den Pico kopiert wird.
 
 ## Paket Neu Erzeugen
 

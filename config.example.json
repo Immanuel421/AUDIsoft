@@ -10,6 +10,7 @@
   },
   "plausibility_limits": {},
   "ack_timeout_ms": 3000,
+  "calibrate_sequence_timeout_on_start": true,
   "sequence_query_retry_s": 60,
   "receive_timeout_ms": 30000,
   "radio": {

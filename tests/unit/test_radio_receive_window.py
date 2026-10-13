@@ -113,6 +113,11 @@ class RadioReceiveWindowTests(unittest.TestCase):
         self.chip.deliver(b'late ack')
         self.assertEqual(self.radio.receive(100)[0], b'late ack')
 
+    def test_timeout_reuses_metadata_to_avoid_heap_churn(self):
+        first_metadata = self.radio.receive(0)[1]
+        second_metadata = self.radio.receive(0)[1]
+        self.assertIs(first_metadata, second_metadata)
+
     def test_corrupt_packet_is_discarded_and_valid_ack_can_follow(self):
         for irq in (64, 32):
             with self.subTest(irq=irq):
